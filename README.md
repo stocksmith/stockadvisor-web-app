@@ -1,7 +1,7 @@
 # stockadvisor
 [![Actions Status](https://github.com/stocksmith/stockadvisor-web-app/workflows/frontend/badge.svg)](https://github.com/stocksmith/stockadvisor-web-app/actions)
 
-![alt-text-1](assets/acm.png width=100) ![alt-text-2](assets/dsc.png "title-2")
+<!-- ![alt-text-1](assets/acm.png width=100) ![alt-text-2](assets/dsc.png "title-2") -->
 # About
 We are using the power of computers to analyze the market and create an optimal stock analysis model which is not only limited to technical but also fundamental analysis of stock data.
 
