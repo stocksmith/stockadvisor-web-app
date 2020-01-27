@@ -1,11 +1,6 @@
-name: Node CI
+name: frontend
 
-on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'front-end/*'
+on: [push]
 
 jobs:
   build:
@@ -23,7 +18,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
+      working-directory: ./front-end
       run: |
+        npm ci
         npm run build --if-present
         npm test
       env:
