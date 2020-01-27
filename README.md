@@ -1,4 +1,4 @@
-# Computational-Investing
+# stockadvisor
 [![Actions Status](https://github.com/stocksmith/stockadvisor-web-app/workflows/frontend/badge.svg)](https://github.com/stocksmith/stockadvisor-web-app/actions)
 
 # About
