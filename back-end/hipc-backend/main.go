@@ -13,7 +13,9 @@ func homeLink(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	fmt.Println("server has started on port 8080")
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", homeLink)
 	log.Fatal(http.ListenAndServe(":8080", router))
+
 }
