@@ -21,3 +21,6 @@ front-end/.env.production.local
 front-end/npm-debug.log*
 front-end/yarn-debug.log*
 front-end/yarn-error.log*
+front-end/package-lock.json
+package-lock.json
+front-end/src/fire.js
