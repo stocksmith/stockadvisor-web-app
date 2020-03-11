@@ -1,0 +1,121 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: StockSmith Microservices
+  contact: {}
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  /news/query:
+    post:
+      description: Retrieves a news query
+      summary: Retrieves a news query
+      tags:
+      - News API
+      deprecated: false
+      produces:
+      - application/json
+      consumes:
+      - application/json
+      parameters:
+      - name: body
+        in: body
+        required: true
+        description: Request for news query
+        schema:
+          $ref: '#/definitions/NewsRequest'
+      responses:
+        200:
+          description: Successful Query
+          schema:
+            $ref: '#/definitions/NewsResponse'
+          headers: {}
+  /stocks/queryTop:
+    get:
+      description: Querys information about the top N stocks
+      summary: Querys information about the top N stocks
+      tags:
+      - Stock API
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: Successful Stock Query
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/NewsResponse'
+          headers: {}
+  /stocks/queryStock:
+    get:
+      description: Querys information about a specific stock
+      summary: Querys information about a specific stock
+      tags:
+      - Stock API
+      deprecated: false
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: Successful Stock Query
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/StockData'
+          headers: {}
+definitions:
+  NewsRequest:
+    title: NewsRequest
+    description: Request to News API for news articles
+    type: object
+    properties:
+      SourcesList:
+        example:
+        - CNN
+        - Yahoo News
+        type: array
+        items:
+          type: string
+      QueryType:
+        example: Ticker
+        type: string
+      QueryBody:
+        example: NVDA
+        type: string
+      NumResponse:
+        example: 2
+        type: integer
+        format: int32
+  NewsResponse:
+    title: NewsResponse
+    description: Response to News API for news articles
+    type: object
+    properties:
+      ArticleList:
+        example:
+        - https://www.CNN.com/article1
+        - https://www.yahoo.com/news/article2
+        type: array
+        items:
+          type: string
+  StockData:
+    title: StockData
+    description: Object to hold serialized stock data
+    type: object
+    properties:
+      ShareValue:
+        example: 263
+        type: integer
+        format: int32
+tags:
+- name: News API
+  description: 'API for retrieving news'
+- name: Stock API
+  description: 'API for retrieving stock data'
