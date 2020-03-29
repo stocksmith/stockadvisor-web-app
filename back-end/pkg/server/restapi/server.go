@@ -25,7 +25,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 	"golang.org/x/net/netutil"
 
-	"pkg/server/restapi/operations"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/restapi/operations"
 )
 
 const (
@@ -38,7 +38,7 @@ var defaultSchemes []string
 
 func init() {
 	defaultSchemes = []string{
-		schemeHTTPS,
+		schemeHTTP,
 	}
 }
 

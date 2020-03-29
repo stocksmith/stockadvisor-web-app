@@ -19,8 +19,8 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"pkg/server/restapi/operations/news_api"
-	"pkg/server/restapi/operations/stock_api"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/restapi/operations/news_api"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/restapi/operations/stock_api"
 )
 
 // NewStockSmithMicroservicesAPI creates a new StockSmithMicroservices instance
@@ -39,8 +39,11 @@ func NewStockSmithMicroservicesAPI(spec *loads.Document) *StockSmithMicroservice
 		BasicAuthenticator:  security.BasicAuth,
 		APIKeyAuthenticator: security.APIKeyAuth,
 		BearerAuthenticator: security.BearerAuth,
-		JSONConsumer:        runtime.JSONConsumer(),
-		JSONProducer:        runtime.JSONProducer(),
+
+		JSONConsumer: runtime.JSONConsumer(),
+
+		JSONProducer: runtime.JSONProducer(),
+
 		StockAPIGetStocksQueryStockHandler: stock_api.GetStocksQueryStockHandlerFunc(func(params stock_api.GetStocksQueryStockParams) middleware.Responder {
 			return middleware.NotImplemented("operation stock_api.GetStocksQueryStock has not yet been implemented")
 		}),
@@ -74,9 +77,11 @@ type StockSmithMicroservicesAPI struct {
 	// BearerAuthenticator generates a runtime.Authenticator from the supplied bearer token auth function.
 	// It has a default implementation in the security package, however you can replace it for your particular usage.
 	BearerAuthenticator func(string, security.ScopedTokenAuthentication) runtime.Authenticator
+
 	// JSONConsumer registers a consumer for the following mime types:
 	//   - application/json
 	JSONConsumer runtime.Consumer
+
 	// JSONProducer registers a producer for the following mime types:
 	//   - application/json
 	JSONProducer runtime.Producer
@@ -154,15 +159,13 @@ func (o *StockSmithMicroservicesAPI) Validate() error {
 	}
 
 	if o.StockAPIGetStocksQueryStockHandler == nil {
-		unregistered = append(unregistered, "StockAPI.GetStocksQueryStockHandler")
+		unregistered = append(unregistered, "stock_api.GetStocksQueryStockHandler")
 	}
-
 	if o.StockAPIGetStocksQueryTopHandler == nil {
-		unregistered = append(unregistered, "StockAPI.GetStocksQueryTopHandler")
+		unregistered = append(unregistered, "stock_api.GetStocksQueryTopHandler")
 	}
-
 	if o.NewsAPIPostNewsQueryHandler == nil {
-		unregistered = append(unregistered, "NewsAPI.PostNewsQueryHandler")
+		unregistered = append(unregistered, "news_api.PostNewsQueryHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -179,16 +182,12 @@ func (o *StockSmithMicroservicesAPI) ServeErrorFor(operationID string) func(http
 
 // AuthenticatorsFor gets the authenticators for the specified security schemes
 func (o *StockSmithMicroservicesAPI) AuthenticatorsFor(schemes map[string]spec.SecurityScheme) map[string]runtime.Authenticator {
-
 	return nil
-
 }
 
 // Authorizer returns the registered authorizer
 func (o *StockSmithMicroservicesAPI) Authorizer() runtime.Authorizer {
-
 	return nil
-
 }
 
 // ConsumersFor gets the consumers for the specified media types.
@@ -252,7 +251,6 @@ func (o *StockSmithMicroservicesAPI) Context() *middleware.Context {
 
 func (o *StockSmithMicroservicesAPI) initHandlerCache() {
 	o.Context() // don't care about the result, just that the initialization happened
-
 	if o.handlers == nil {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
@@ -261,17 +259,14 @@ func (o *StockSmithMicroservicesAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/stocks/queryStock"] = stock_api.NewGetStocksQueryStock(o.context, o.StockAPIGetStocksQueryStockHandler)
-
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/stocks/queryTop"] = stock_api.NewGetStocksQueryTop(o.context, o.StockAPIGetStocksQueryTopHandler)
-
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
 	o.handlers["POST"]["/news/query"] = news_api.NewPostNewsQuery(o.context, o.NewsAPIPostNewsQueryHandler)
-
 }
 
 // Serve creates a http handler to serve the API over HTTP
@@ -300,4 +295,16 @@ func (o *StockSmithMicroservicesAPI) RegisterConsumer(mediaType string, consumer
 // RegisterProducer allows you to add (or override) a producer for a media type.
 func (o *StockSmithMicroservicesAPI) RegisterProducer(mediaType string, producer runtime.Producer) {
 	o.customProducers[mediaType] = producer
+}
+
+// AddMiddlewareFor adds a http middleware to existing handler
+func (o *StockSmithMicroservicesAPI) AddMiddlewareFor(method, path string, builder middleware.Builder) {
+	um := strings.ToUpper(method)
+	if path == "/" {
+		path = ""
+	}
+	o.Init()
+	if h, ok := o.handlers[um][path]; ok {
+		o.handlers[method][path] = builder(h)
+	}
 }

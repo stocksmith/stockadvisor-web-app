@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"pkg/server/models"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/models"
 )
 
 // GetStocksQueryTopOKCode is the HTTP code returned for type GetStocksQueryTopOK

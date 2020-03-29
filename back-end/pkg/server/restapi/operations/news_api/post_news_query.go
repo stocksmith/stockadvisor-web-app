@@ -8,7 +8,7 @@ package news_api
 import (
 	"net/http"
 
-	middleware "github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/runtime/middleware"
 )
 
 // PostNewsQueryHandlerFunc turns a function with the right signature into a post news query handler

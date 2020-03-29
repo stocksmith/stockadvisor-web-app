@@ -10,12 +10,12 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"pkg/server/restapi/operations"
-	"pkg/server/restapi/operations/news_api"
-	"pkg/server/restapi/operations/stock_api"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/restapi/operations"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/restapi/operations/news_api"
+	"github.com/stocksmith/stockadvisor-web-app/back-end/pkg/server/restapi/operations/stock_api"
 )
 
-//go:generate swagger generate server --target ../../server --name StockSmithMicroservices --spec ../../../idl/swagger.yaml
+//go:generate swagger generate server --target ..\..\server --name StockSmithMicroservices --spec ..\..\..\idl\swagger.yaml
 
 func configureFlags(api *operations.StockSmithMicroservicesAPI) {
 	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }

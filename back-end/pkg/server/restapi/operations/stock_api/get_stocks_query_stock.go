@@ -8,7 +8,7 @@ package stock_api
 import (
 	"net/http"
 
-	middleware "github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/runtime/middleware"
 )
 
 // GetStocksQueryStockHandlerFunc turns a function with the right signature into a get stocks query stock handler

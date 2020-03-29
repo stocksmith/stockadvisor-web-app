@@ -3,7 +3,7 @@
 // Package restapi StockSmith Microservices
 //
 //  Schemes:
-//    https
+//    http
 //  Host: localhost
 //  BasePath: /
 //  Version: 1.0.0

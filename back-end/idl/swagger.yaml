@@ -4,7 +4,7 @@ info:
   title: StockSmith Microservices
   contact: {}
 schemes:
-- https
+- http
 consumes:
 - application/json
 produces:
