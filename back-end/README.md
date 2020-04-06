@@ -2,6 +2,12 @@
 - Every file inside of back-end/pkg/ will be overwritten when generating the server and the client except for back-end/pkg/server/restapi/configure_stock_smith_microservices.go
 - To generate the server and client, install [go-swagger](https://github.com/go-swagger/go-swagger)
 
+# TODO
+- Add (self-signed) certificates to use HTTPS instead of HTTP
+- Replace the POC REST schema with a proper schema
+- Implement client test requests
+- Change the naming scheme to make it less verbose
+
 ## Generating the server
 - from stockadvisor-web-app/back-end, run: `swagger generate server -f idl\swagger.yaml -t pkg\server`
 

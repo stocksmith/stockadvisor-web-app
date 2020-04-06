@@ -10,8 +10,8 @@ consumes:
 produces:
 - application/json
 paths:
-  /news/query:
-    post:
+  /stocksmith/api/news/query:
+    get:
       description: Retrieves a news query
       summary: Retrieves a news query
       tags:
@@ -34,7 +34,7 @@ paths:
           schema:
             $ref: '#/definitions/NewsResponse'
           headers: {}
-  /stocks/queryTop:
+  /stocksmith/api/stocks/queryTop:
     get:
       description: Querys information about the top N stocks
       summary: Querys information about the top N stocks
@@ -50,9 +50,9 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/NewsResponse'
+              $ref: '#/definitions/StockData'
           headers: {}
-  /stocks/queryStock:
+  /stocksmith/api/stocks/queryStock:
     get:
       description: Querys information about a specific stock
       summary: Querys information about a specific stock
